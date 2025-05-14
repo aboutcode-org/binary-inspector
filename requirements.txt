@@ -1,0 +1,4 @@
+# from blint v2.3.2
+# https://github.com/owasp-dep-scan/blint/blob/1e1250a4bf6c25eccba8970bd877901ee56070c7/poetry.lock
+lief==0.15.1
+symbolic==10.2.1

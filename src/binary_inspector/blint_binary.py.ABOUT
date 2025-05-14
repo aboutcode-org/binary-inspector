@@ -1,0 +1,11 @@
+about_resource: blint_binary.py
+name: blint
+author: Prabhu Subramanian, Caroline Russell and others
+author_email: prabhu@appthreat.com, caroline@appthreat.dev
+homepage_url: https://github.com/owasp-dep-scan/blint
+download_url: https://github.com/owasp-dep-scan/blint/blob/1e1250a4bf6c25eccba8970bd877901ee56070c7/blint/lib/binary.py
+license_expression: mit
+copyright: Copyright (c) OWASP Foundation
+package_url: pkg:pypi/blint@2.3.2
+notice_file: blint_binary.py.LICENSE
+notes: only a subset of functions from binary.py is used, after minor modifications
