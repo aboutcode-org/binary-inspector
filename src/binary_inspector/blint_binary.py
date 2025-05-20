@@ -78,13 +78,7 @@ def demangle_symbolic_name(symbol, lang=None, no_args=False):
 
 def is_shared_library(parsed_binary_obj):
     """
-    Returns True if the given parsed binary object represents a shared library.
-
-    Args:
-        parsed_obj: The parsed binary object to be checked.
-
-    Returns:
-        bool: True if the parsed object represents a shared library.
+    Return True if the given parsed binary object represents a shared library.
     """
     if not parsed_binary_obj:
         return False
@@ -99,7 +93,7 @@ def is_shared_library(parsed_binary_obj):
 
 def parse_notes(parsed_binary_obj):
     """
-    Returns a list of metadata dictionaries, each representing the notes
+    Return a list of metadata dictionaries, each representing the notes
     from the given parsed binary object.
     """
     data = []
@@ -112,13 +106,7 @@ def parse_notes(parsed_binary_obj):
 
 def extract_note_data(idx, note):
     """
-    Extracts metadata from a note object and returns a dictionary.
-
-    Args:
-        idx (int): The index of the note.
-        note: The note object to extract data from.
-    Returns:
-        dict: A dictionary containing the extracted metadata
+    Extract metadata from a note object and returns a dictionary.
     """
     note_str = ""
     build_id = ""
@@ -171,26 +159,14 @@ def extract_note_data(idx, note):
 
 def integer_to_hex_str(e):
     """
-    Converts an integer to a hexadecimal string representation.
-
-    Args:
-        e: The integer to be converted.
-
-    Returns:
-        The hexadecimal string representation of the integer.
+    Convert an integer to a hexadecimal string representation.
     """
     return "{:02x}".format(e)
 
 
 def parse_relro(parsed_obj):
     """
-    Determines the Relocation Read-Only (RELRO) protection level.
-
-    Args:
-        parsed_obj: The parsed binary object to analyze.
-
-    Returns:
-        str: The RELRO protection level of the binary object.
+    Determine the Relocation Read-Only (RELRO) protection level.
     """
     test_stmt = parsed_obj.get(lief.ELF.Segment.TYPE.GNU_RELRO)
     if isinstance(test_stmt, lief.lief_errors):
@@ -207,13 +183,7 @@ def parse_relro(parsed_obj):
 
 def parse_functions(functions):
     """
-    Parses a list of functions and returns a list of dictionaries.
-
-    Args:
-        functions (list): A list of function objects to parse.
-
-    Returns:
-        list[dict]: A list of function dictionaries
+    Parse a list of functions and returns a list of dictionaries.
     """
     func_list = []
 
@@ -275,15 +245,8 @@ def parse_symbols(symbols):
 
 def detect_exe_type(parsed_obj, metadata):
     """
-    Detects the type of the parsed binary object based on its characteristics
+    Detect the type of the parsed binary object based on its characteristics
     and metadata.
-
-    Args:
-        parsed_obj: The parsed binary object to analyze.
-        metadata (dict): The metadata dictionary containing binary information.
-
-    Returns:
-        str: The detected type of the binary.
     """
     with contextlib.suppress(AttributeError, TypeError):
         if parsed_obj.has_section(".note.go.buildid"):
@@ -295,7 +258,7 @@ def detect_exe_type(parsed_obj, metadata):
         ):
             return "genericbinary"
         if metadata.get("machine_type") and metadata.get("file_type"):
-            return f'{metadata.get("machine_type")}-{metadata.get("file_type")}'.lower()
+            return f"{metadata.get('machine_type')}-{metadata.get('file_type')}".lower()
         if metadata["relro"] in ("partial", "full"):
             return "genericbinary"
     return ""
@@ -304,12 +267,6 @@ def detect_exe_type(parsed_obj, metadata):
 def guess_exe_type(symbol_name):
     """
     Guess the executable type based on the symbol name.
-
-    Args:
-        symbol_name (str): The name of the symbol.
-
-    Returns:
-        str: The guessed executable type based on the symbol name.
     """
     exe_type = ""
     if "golang" in symbol_name or "_cgo_" in symbol_name:
@@ -323,13 +280,7 @@ def guess_exe_type(symbol_name):
 
 def parse_pe_data(parsed_obj):
     """
-    Parses the data directories from the given parsed PE binary object.
-
-    Args:
-        parsed_obj: The parsed PE binary object to extract from.
-
-    Returns:
-        list[dict]: A list of dictionaries, each representing a data directory.
+    Parse the data directories from the given parsed PE binary object.
     """
     data_list = []
 
@@ -367,14 +318,8 @@ def parse_pe_data(parsed_obj):
 
 def process_pe_resources(parsed_obj):
     """
-    Processes the resources of the parsed PE (Portable Executable) binary object
+    Process the resources of the parsed PE (Portable Executable) binary object
     and returns metadata about the resources.
-
-    Args:
-        parsed_obj: The parsed PE binary object to process the resources from.
-
-    Returns:
-        dict: A dictionary containing metadata about the resources
     """
     rm = parsed_obj.resources_manager
     if not rm or isinstance(rm, lief.lief_errors):
@@ -413,14 +358,8 @@ def process_pe_resources(parsed_obj):
 
 def process_pe_signature(parsed_obj):
     """
-    Processes the signatures of the parsed PE (Portable Executable) binary
+    Process the signatures of the parsed PE (Portable Executable) binary
     object and returns information about the signatures.
-
-    Args:
-        parsed_obj: The parsed PE binary object to process the signatures from.
-
-    Returns:
-        list[dict]: A list of dictionaries containing signatures info.
     """
     signature_list = []
     with contextlib.suppress(AttributeError, TypeError, KeyError):
@@ -453,18 +392,9 @@ def process_pe_signature(parsed_obj):
     return signature_list
 
 
-
 def parse_pe_symbols(symbols):
     """
-    Parses the symbols and determines the executable type.
-
-    Args:
-        symbols (list): A list of symbol objects to parse.
-
-    Returns:
-        tuple: A tuple containing two elements:
-            - symbols_list (list): A list of symbol dictionaries
-            - exe_type (str): The determined executable type.
+    Parse the symbols and determines the executable type.
     """
 
     symbols_list = []
@@ -497,15 +427,7 @@ def parse_pe_symbols(symbols):
 
 def parse_pe_imports(imports):
     """
-    Parses the imports and returns lists of imported symbols and DLLs.
-
-    Args:
-        imports (it_imports): A list of import objects to parse.
-
-    Returns:
-        tuple: A tuple containing two elements:
-            - imports_list (list[dict])
-            - dll_list (list[dict])
+    Parse the imports and returns lists of imported symbols and DLLs.
     """
     imports_list = []
     dlls = set()
@@ -539,14 +461,7 @@ def parse_pe_imports(imports):
 
 def parse_pe_exports(exports):
     """
-    Parses the exports and returns a list of exported symbols.
-
-    Args:
-        exports: The exports object to parse.
-
-    Returns:
-        list[dict]: A list of exported symbol dictionaries.
-
+    Parse the exports and returns a list of exported symbols.
     """
     exports_list = []
     if not exports or isinstance(exports, lief.lief_errors):
@@ -574,15 +489,7 @@ def parse_pe_exports(exports):
 
 def parse_macho_symbols(symbols):
     """
-    Parses the symbols and determines the executable type.
-
-    Args:
-        symbols (it_symbols): A list of symbol objects to parse.
-
-    Returns:
-        tuple: A tuple containing two elements:
-            - symbols_list (list): A list of symbol dictionaries.
-            - exe_type (str): The determined executable type.
+    Parse the symbols and determines the executable type.
     """
 
     symbols_list = []
@@ -624,9 +531,6 @@ def parse_macho_symbols(symbols):
 def parse(exe_file):  # pylint: disable=too-many-locals,too-many-branches,too-many-statements
     """
     Parse the executable using lief and capture the metadata
-
-    :param: exe_file Binary file
-    :return Metadata dict
     """
     metadata = {"file_path": exe_file}
 
@@ -634,26 +538,22 @@ def parse(exe_file):  # pylint: disable=too-many-locals,too-many-branches,too-ma
     metadata["is_shared_library"] = is_shared_library(parsed_obj)
     # ELF Binary
     if isinstance(parsed_obj, lief.ELF.Binary):
-        metadata = add_elf_metadata(exe_file, metadata, parsed_obj)
+        elf_metadata = get_elf_metadata(exe_file, parsed_obj)
+        metadata.update(elf_metadata)
     elif isinstance(parsed_obj, lief.PE.Binary):
         # PE
-        metadata = add_pe_metadata(exe_file, metadata, parsed_obj)
+        winpe_metadata = get_pe_metadata(exe_file, parsed_obj)
+        metadata.update(winpe_metadata)
     elif isinstance(parsed_obj, lief.MachO.Binary):
-        metadata = add_mach0_metadata(exe_file, metadata, parsed_obj)
+        macho_metadata = get_mach0_metadata(exe_file, parsed_obj)
+        metadata.update(macho_metadata)
 
     return cleanup_dict_lief_errors(metadata)
 
 
 def cleanup_dict_lief_errors(old_dict):
     """
-    Removes lief_errors from a dictionary recursively.
-
-    Args:
-        old_dict (dict): The dictionary to remove lief_errors from.
-
-    Returns:
-        dict: A new dictionary with lief_errors removed.
-
+    Remove lief_errors from a dictionary recursively.
     """
     new_dict = {}
     for key, value in old_dict.items():
@@ -671,11 +571,7 @@ def cleanup_dict_lief_errors(old_dict):
 
 def cleanup_list_lief_errors(d):
     """
-    Cleans up a list by removing lief errors recursively.
-
-    :param d: The list to be cleaned up.
-
-    :return: The new list
+    Clean up a list by removing lief errors recursively.
     """
     new_lst = []
     for dl in d:
@@ -691,17 +587,12 @@ def cleanup_list_lief_errors(d):
     return new_lst
 
 
-def add_elf_metadata(exe_file, metadata, parsed_obj):
-    """Adds ELF metadata to the given metadata dictionary.
-
-    Args:
-        exe_file (str): The path of the executable file.
-        metadata (dict): The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the ELF binary.
-
-    Returns:
-        dict: The updated metadata dictionary.
+def get_elf_metadata(exe_file, parsed_obj):
     """
+    Return ELF metadata to from the parsed binary object.
+    """
+    metadata = {}
+
     metadata["binary_type"] = "ELF"
     header = parsed_obj.header
     identity = header.identity
@@ -757,14 +648,8 @@ def add_elf_metadata(exe_file, metadata, parsed_obj):
 
 
 def add_elf_header(header, metadata):
-    """Adds ELF header data to the metadata dictionary.
-
-    Args:
-        header: The ELF header.
-        metadata: The dictionary to store the metadata.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Add ELF header data to the metadata dictionary.
     """
     if not header or isinstance(header, lief.lief_errors):
         return metadata
@@ -777,9 +662,7 @@ def add_elf_header(header, metadata):
     metadata["identity_abi_version"] = header.identity_abi_version
     metadata["file_type"] = str(header.file_type).rsplit(".", maxsplit=1)[-1]
     metadata["machine_type"] = str(header.machine_type).rsplit(".", maxsplit=1)[-1]
-    metadata["object_file_version"] = str(header.object_file_version).rsplit(".", maxsplit=1)[
-        -1
-    ]
+    metadata["object_file_version"] = str(header.object_file_version).rsplit(".", maxsplit=1)[-1]
     metadata["entrypoint"] = header.entrypoint
     metadata["processor_flag"] = str(header.processor_flag) + eflags_str
 
@@ -787,14 +670,8 @@ def add_elf_header(header, metadata):
 
 
 def add_elf_symbols(metadata, parsed_obj):
-    """Extracts ELF symbols version information and adds it to the metadata dictionary.
-
-    Args:
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the ELF binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Extract ELF symbols version information and adds it to the metadata dictionary.
     """
     symbols_version = parsed_obj.symbols_version
     if symbols_version and not isinstance(symbols_version, lief.lief_errors):
@@ -818,14 +695,8 @@ def add_elf_symbols(metadata, parsed_obj):
 
 
 def add_elf_dynamic_entries(dynamic_entries, metadata):
-    """Extracts ELF dynamic entries and adds them to the metadata dictionary.
-
-    Args:
-        dynamic_entries: The dynamic entries of the ELF binary.
-        metadata: The dictionary to store the metadata.
-
-    Returns:
-        dict: The updated metadata dictionary.
+    """
+    Extract ELF dynamic entries and adds them to the metadata dictionary.
     """
     metadata["dynamic_entries"] = []
     if isinstance(dynamic_entries, lief.lief_errors):
@@ -871,14 +742,12 @@ def add_elf_dynamic_entries(dynamic_entries, metadata):
 
 def determine_elf_flags(header):
     """
-    Determines and returns a string representing the ELF flags
+    Determine and return a string representing the ELF flags
     based on the given ELF header.
     """
     eflags_str = ""
     if header.machine_type == lief.ELF.ARCH.ARM and hasattr(header, "arm_flags_list"):
-        eflags_str = " - ".join(
-            [str(s).rsplit(".", maxsplit=1)[-1] for s in header.arm_flags_list]
-        )
+        eflags_str = " - ".join([str(s).rsplit(".", maxsplit=1)[-1] for s in header.arm_flags_list])
     if header.machine_type in [
         lief.ELF.ARCH.MIPS,
         lief.ELF.ARCH.MIPS_RS3_LE,
@@ -901,11 +770,6 @@ def determine_elf_flags(header):
 def parse_overlay(parsed_obj: lief.Binary):
     """
     Parse the overlay section to extract dotnet dependencies
-    Args:
-        parsed_obj (lief.Binary): The parsed object representing the PE binary.
-
-    Returns:
-        dict: Dict representing the deps.json if available.
     """
     deps = {}
     if hasattr(parsed_obj, "overlay"):
@@ -932,21 +796,8 @@ def parse_overlay(parsed_obj: lief.Binary):
 
 
 def get_pe_metadata(exe_file: str, parsed_obj: lief.PE.Binary):
-    """Adds PE metadata to the given metadata dictionary.
-
-    Args:
-        exe_file (str): The path of the executable file.
-        metadata (dict): The dictionary to store the metadata.
-        parsed_obj (lief.PE.Binary): The parsed object representing the PE binary.
-
-    Returns:
-        dict: The updated metadata dictionary.
-
-    Raises:
-        AttributeError: If the parsed object does not have the required attributes.
-        IndexError: If there is an index error while accessing attributes.
-        TypeError: If there is a type error while accessing attributes.
-        ValueError: If there is a value error while accessing attributes.
+    """
+    Return PE metadata from the parsed binary object.
     """
     metadata = {}
 
@@ -1008,14 +859,8 @@ def get_pe_metadata(exe_file: str, parsed_obj: lief.PE.Binary):
 
 
 def add_pe_header_data(metadata, parsed_obj):
-    """Adds PE header data to the metadata dictionary.
-
-    Args:
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the PE binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Add PE header data to the metadata dictionary.
     """
     dos_header = parsed_obj.dos_header
     if dos_header and not isinstance(dos_header, lief.lief_errors):
@@ -1050,14 +895,8 @@ def add_pe_header_data(metadata, parsed_obj):
 
 
 def add_pe_optional_headers(metadata, optional_header):
-    """Adds PE optional headers data to the metadata dictionary.
-
-    Args:
-        metadata: The dictionary to store the metadata.
-        optional_header: The optional header of the PE binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Add PE optional headers data to the metadata dictionary.
     """
     with contextlib.suppress(IndexError, TypeError):
         metadata["dll_characteristics"] = ", ".join(
@@ -1102,15 +941,8 @@ def add_pe_optional_headers(metadata, optional_header):
 
 
 def get_mach0_metadata(exe_file, parsed_obj):
-    """Adds MachO metadata to the given metadata dictionary.
-
-    Args:
-        exe_file: The path of the executable file.
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the MachO binary.
-
-    Returns:
-        dict: The updated metadata dictionary.
+    """
+    Get MachO metadata from the parsed binary object.
     """
     metadata = {}
 
@@ -1149,36 +981,21 @@ def get_mach0_metadata(exe_file, parsed_obj):
 
 
 def add_mach0_commands(metadata, parsed_obj: lief.MachO.Binary):
-    """Extracts MachO commands metadata from the parsed object and adds it to the metadata.
-
-    Args:
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the MachO binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Extract MachO commands metadata from the parsed object and adds it to the metadata.
     """
     metadata["has_main"] = False
     metadata["has_thread_command"] = False
     if parsed_obj.main_command:
         metadata["has_main_command"] = not isinstance(parsed_obj.main_command, lief.lief_errors)
     if parsed_obj.thread_command:
-        metadata["has_thread_command"] = not isinstance(
-            parsed_obj.thread_command, lief.lief_errors
-        )
+        metadata["has_thread_command"] = not isinstance(parsed_obj.thread_command, lief.lief_errors)
     return metadata
 
 
 def add_mach0_versions(exe_file, metadata, parsed_obj):
-    """Extracts MachO version metadata from the parsed object and adds it to the metadata.
-
-    Args:
-        exe_file: The path of the executable file.
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the MachO binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Extract MachO version metadata from the parsed object and adds it to the metadata.
     """
     version = parsed_obj.version_min.version if parsed_obj.version_min else ""
     sdk = parsed_obj.version_min.sdk if parsed_obj.version_min else ""
@@ -1194,15 +1011,8 @@ def add_mach0_versions(exe_file, metadata, parsed_obj):
 
 
 def add_mach0_build_metadata(exe_file, metadata, parsed_obj):
-    """Extracts MachO build version metadata from the parsed object and adds it to the metadata.
-
-    Args:
-        exe_file: The path of the executable file.
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the MachO binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Extract MachO build version metadata from the parsed object and adds it to the metadata.
     """
     build_version = parsed_obj.build_version
     if not build_version:
@@ -1225,15 +1035,8 @@ def add_mach0_build_metadata(exe_file, metadata, parsed_obj):
 
 
 def add_mach0_libraries(exe_file, metadata, parsed_obj):
-    """Processes the libraries of a MachO binary and adds them to the metadata dictionary.
-
-    Args:
-        exe_file: The path of the executable file.
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the MachO binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Process the libraries of a MachO binary and adds them to the metadata dictionary.
     """
 
     metadata["libraries"] = []
@@ -1255,15 +1058,8 @@ def add_mach0_libraries(exe_file, metadata, parsed_obj):
 
 
 def add_mach0_header_data(exe_file, metadata, parsed_obj):
-    """Extracts MachO header data from the parsed object and adds it to the metadata dictionary.
-
-    Args:
-        exe_file: The path of the executable file.
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the MachO binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Extract MachO header data from the parsed object and adds it to the metadata dictionary.
     """
     header = parsed_obj.header
     if not header:
@@ -1283,14 +1079,8 @@ def add_mach0_header_data(exe_file, metadata, parsed_obj):
 
 
 def add_mach0_functions(metadata, parsed_obj):
-    """Extracts MachO functions and symbols from the parsed object and adds them to the metadata.
-
-    Args:
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the MachO binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Extract MachO functions and symbols from the parsed object and adds them to the metadata.
     """
     metadata["functions"] = parse_functions(parsed_obj.functions)
     metadata["ctor_functions"] = parse_functions(parsed_obj.ctor_functions)
@@ -1304,15 +1094,8 @@ def add_mach0_functions(metadata, parsed_obj):
 
 
 def add_mach0_signature(exe_file, metadata, parsed_obj):
-    """Extracts MachO code signature metadata from the parsed object and adds it to the metadata.
-
-    Args:
-        exe_file: The path of the executable file.
-        metadata: The dictionary to store the metadata.
-        parsed_obj: The parsed object representing the MachO binary.
-
-    Returns:
-        The updated metadata dictionary.
+    """
+    Extract MachO code signature metadata from the parsed object and adds it to the metadata.
     """
     if parsed_obj.has_code_signature:
         code_signature = parsed_obj.code_signature

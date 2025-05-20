@@ -65,5 +65,3 @@ def test_can_parse_and_demangle_macho_binary_symbols():
     winpe_symbols = binary.collect_and_parse_winpe_symbols(winpe_binary)
     expected = test_env.get_test_loc("winpe/TranslucentTB-symbols.json")
     check_json(expected, winpe_symbols, regen=True)
-
-

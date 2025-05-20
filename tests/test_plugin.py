@@ -27,6 +27,7 @@ def test_scancode_plugin_with_winpe_symbol_option():
     expected = test_env.get_test_loc("winpe/TranslucentTB-symbols-plugin.json")
     check_json_scan(expected, result_file, regen=True)
 
+
 def test_scancode_plugin_with_macho_symbol_option():
     test_file = test_env.get_test_loc("macho/Lumen")
     result_file = test_env.get_temp_file("json")

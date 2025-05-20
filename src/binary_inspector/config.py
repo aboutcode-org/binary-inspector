@@ -22,8 +22,7 @@ STANDARD_SYMBOLS_MACHO = [
     "objc",
     "OBJC",
     "CLASS",
-    "METACLASS"
-    "sleep",
+    "METACLASSsleep",
     "empty",
     "async",
     "cache",
@@ -38,5 +37,4 @@ STANDARD_SYMBOLS_MACHO_SOURCE = [
     "main",
     "argc",
     "argv",
-    
 ]

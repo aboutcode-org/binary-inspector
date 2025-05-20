@@ -5,10 +5,9 @@ binary-inspector is a utility to extract symbols from various kinds of binaries,
 i.e. ELF, Mach-O, WinPE and other binary formats. It is designed to work as a ScanCode
 Toolkit plugin and integrated in ScanCode.io pipelines.
 
-To install and use:
+To install run ``pip install binary-inspector`` and use with::
 
-- Run ``pip install binary-inspector``
-- Use with ``scancode --json-pp - --macho-symbol --winpe-symbol --verbose <PATH to a tree or file with binaries>``
+    scancode --json-pp - --macho-symbol --winpe-symbol --verbose <PATH to a tree or file with binaries>
 
 The JSON output will contain binary symbols found in binaries if any.
 
@@ -85,7 +84,7 @@ Communications Networks, Content and Technology under grant agreement No 1010695
     :alt: NLnet foundation logo
 
 .. |ngi| image:: https://ngi.eu/wp-content/uploads/thegem-logos/logo_8269bc6efcf731d34b6385775d76511d_1x.png
-    :target: https://ngi.eu35
+    :target: https://ngi.eu
     :height: 50
     :alt: NGI logo
 
@@ -95,7 +94,7 @@ Communications Networks, Content and Technology under grant agreement No 1010695
     :alt: nexB logo
 
 .. |europa| image:: https://ngi.eu/wp-content/uploads/sites/77/2017/10/bandiera_stelle.png
-    :target: http://ec.europa.eu/index_en.htm
+    :target: https://commission.europa.eu/index_en
     :height: 40
     :alt: Europa logo
 
