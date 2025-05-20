@@ -8,7 +8,7 @@ Toolkit plugin and integrated in ScanCode.io pipelines.
 To install and use:
 
 - Run ``pip install binary-inspector``
-- Use with ``scancode --json-pp - --binary-symbol --verbose <PATH to a tree or file with binaries>``
+- Use with ``scancode --json-pp - --macho-symbol --winpe-symbol --verbose <PATH to a tree or file with binaries>``
 
 The JSON output will contain binary symbols found in binaries if any.
 
