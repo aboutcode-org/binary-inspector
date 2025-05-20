@@ -73,10 +73,7 @@ def might_have_macho_symbols(string_with_symbols):
     if len(string_with_symbols) < 2:
         return False
 
-    if any(
-        ignore_char in string_with_symbols
-        for ignore_char in ignore_chars
-    ):
+    if any(ignore_char in string_with_symbols for ignore_char in ignore_chars):
         return False
 
     return True
@@ -84,7 +81,7 @@ def might_have_macho_symbols(string_with_symbols):
 
 def remove_standard_symbols(macho_symbols, standard_symbols=STANDARD_SYMBOLS_MACHO):
     """
-    Remove standard symbols usually found in macho binaries. Given a list of machot 
+    Remove standard symbols usually found in macho binaries. Given a list of machot
     symbol strings, return a list of symbol strings which are most likely non-standard.
     """
     return [symbol for symbol in macho_symbols if symbol not in standard_symbols]
@@ -160,8 +157,7 @@ def extract_strings_with_symbols(
     """
     strings_with_symbols = []
     for symbol_data in symbols_data:
-
-        #TODO: get and match using fully qualified "name"
+        # TODO: get and match using fully qualified "name"
         symbol_name = symbol_data.get("short_name")
         strings_with_symbols.append(symbol_name)
 

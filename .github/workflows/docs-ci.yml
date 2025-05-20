@@ -29,4 +29,6 @@ jobs:
       - name: Check documentation for style errors
         run: make doc8
 
+      - name: Check code for style errors
+        run: make check
 

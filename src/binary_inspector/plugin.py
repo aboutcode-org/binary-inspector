@@ -52,6 +52,7 @@ class WinPESymbolScannerPlugin(ScanPlugin):
     def get_scanner(self, **kwargs):
         return collect_and_parse_winpe_symbols
 
+
 @scan_impl
 class MachOSymbolScannerPlugin(ScanPlugin):
     """
