@@ -2,3 +2,6 @@
 # https://github.com/owasp-dep-scan/blint/blob/1e1250a4bf6c25eccba8970bd877901ee56070c7/poetry.lock
 lief==0.15.1
 symbolic==10.2.1
+click==8.2.1;python_version>='3.10'
+click==8.1.7;python_version<'3.10'
+commoncode==32.3.0
