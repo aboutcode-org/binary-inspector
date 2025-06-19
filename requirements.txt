@@ -3,5 +3,5 @@
 lief==0.15.1
 symbolic==10.2.1
 click==8.2.1;python_version>='3.10'
-click==8.1.8;python_version<'3.10'
+click==8.1.7;python_version<'3.10'
 commoncode==32.3.0

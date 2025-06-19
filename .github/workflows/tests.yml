@@ -1,0 +1,27 @@
+name: Run tests on supported Python versions
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+    extensive_tests:
+        name: Run tests on Python ${{ matrix.python }}
+        runs-on: ${{ matrix.os }}
+        defaults:
+          run:
+            shell: bash
+        strategy:
+            fail-fast: false
+            matrix:
+                python: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+                os: ["ubuntu-latest"]
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: "${{ matrix.python }}"
+
+            - name: Run tests
+              run: make clean && make dev && make test
