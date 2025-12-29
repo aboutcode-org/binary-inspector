@@ -25,7 +25,7 @@ def test_scancode_plugin_with_winpe_symbol_option():
     args = ["--winpe-symbol", test_file, "--json", result_file]
     run_scan_click(args)
     expected = test_env.get_test_loc("winpe/TranslucentTB-symbols-plugin.json")
-    check_json_scan(expected, result_file, regen=True)
+    check_json_scan(expected, result_file, regen=REGEN_TEST_FIXTURES)
 
 
 def test_scancode_plugin_with_macho_symbol_option():
@@ -34,4 +34,4 @@ def test_scancode_plugin_with_macho_symbol_option():
     args = ["--macho-symbol", test_file, "--json", result_file]
     run_scan_click(args)
     expected = test_env.get_test_loc("macho/Lumen-symbols-plugin.json")
-    check_json_scan(expected, result_file, regen=True)
+    check_json_scan(expected, result_file, regen=REGEN_TEST_FIXTURES)

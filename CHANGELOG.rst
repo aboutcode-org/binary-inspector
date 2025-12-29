@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.2.0
+------
+
+Minor release with updated dependencies and python support.
+
 v0.1.2
 ------
 

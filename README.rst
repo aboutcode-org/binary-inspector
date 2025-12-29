@@ -103,8 +103,8 @@ Communications Networks, Content and Technology under grant agreement No 1010695
     :height: 30
     :alt: AboutCode logo
 
-.. |swiss| image:: https://www.sbfi.admin.ch/sbfi/en/_jcr_content/logo/image.imagespooler.png/1493119032540/logo.png
-    :target: https://www.sbfi.admin.ch/sbfi/en/home/seri/seri.html
+.. |swiss| image:: https://www.sbfi.admin.ch/images/swiss-logo-flag.svg
+    :target: https://www.sbfi.admin.ch/de
     :height: 40
     :alt: Swiss logo
 
