@@ -1,6 +1,12 @@
 Changelog
 =========
 
+v0.2.1
+------
+
+Patch release with updated dependencies and no version constraints.
+
+
 v0.2.0
 ------
 
